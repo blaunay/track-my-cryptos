@@ -1,0 +1,54 @@
+<div>
+    <table mat-table [dataSource]="prixCryptos" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="monnaie">
+            <th mat-header-cell *matHeaderCellDef> Monnaie </th>
+            <td mat-cell *matCellDef="let element">{{ element.currency }}</td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <ng-container matColumnDef="prixUnite">
+            <th mat-header-cell *matHeaderCellDef> Prix unité actuel </th>
+            <td mat-cell *matCellDef="let element"> {{ element.unitPrice | currency:'CAD':'symbol-narrow' }} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantite">
+            <th mat-header-cell *matHeaderCellDef> Portefeuille </th>
+            <td mat-cell *matCellDef="let element"> {{ element.quantity }} {{element.monnaie}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <ng-container matColumnDef="cout">
+            <th mat-header-cell *matHeaderCellDef> Coût initial </th>
+            <td mat-cell *matCellDef="let element"> {{ element.initialCost | currency:'CAD':'symbol-narrow' }} </td>
+            <td mat-footer-cell *matFooterCellDef> {{coutInitialTotal | currency:'CAD':'symbol-narrow'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="valeur">
+            <th mat-header-cell *matHeaderCellDef> Valeur actuelle </th>
+            <td mat-cell *matCellDef="let element"> {{ element.currentValue | currency:'CAD':'symbol-narrow' }} </td>
+            <td mat-footer-cell *matFooterCellDef> {{valeurTotale | currency:'CAD':'symbol-narrow'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="gain">
+            <th mat-header-cell *matHeaderCellDef> Gain </th>
+            <td mat-cell *matCellDef="let element"
+                [ngClass]="{'positive' : element.gain > 0,'negative' : element.gain < 0}">
+                {{ element.gain | currency:'CAD':'symbol-narrow' }}
+                ({{element.gain / element.initialCost | percent:'1.2'}}) </td>
+            <td mat-footer-cell *matFooterCellDef
+            [ngClass]="{'positive' : gainTotal > 0,'negative' : gainTotal < 0}"> {{gainTotal | currency:'CAD':'symbol-narrow'}} 
+                ({{gainTotal / coutInitialTotal | percent:'1.2'}})
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+    <br>
+    <div style="text-align:center;">
+        <button mat-raised-button color="basic" (click)="actualiser()">Actualiser</button>
+    </div>
+</div>

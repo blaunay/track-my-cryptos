@@ -1,0 +1,19 @@
+table.mat-table {
+  display: table;
+  width: 100%;
+  th {
+      background-color: blue;
+      color: white;
+  }
+  .mat-cell,.mat-header-cell,.mat-footer-cell {
+    padding: 0 5px 0 0;
+  }
+}
+
+.positive {
+  color: green;
+}
+
+.negative {
+  color: red;
+}
